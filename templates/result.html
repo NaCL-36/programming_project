@@ -2,18 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result - Error Explainer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="background-glow glow-1"></div>
+    <div class="background-glow glow-2"></div>
 
-<h1>You entered: {{ error }}</h1>
+    <div class="page-wrapper">
+        <div class="result-card fade-in">
+            <h1>{{ error }}</h1>
+            <p class="subtitle">Here is a simple explanation for this error</p>
 
-<p>Description: {{ data["description"] }}</p>
-<p>Solution: {{ data["solution"] }}</p>
+            <div class="info-box">
+                <h3>Description</h3>
+                <p>{{ data["description"] }}</p>
+            </div>
 
-<pre>{{ data["example"] }}</pre>
+            <div class="info-box">
+                <h3>Solution</h3>
+                <p>{{ data["solution"] }}</p>
+            </div>
 
-<a href="/">Back</a>
+            <div class="info-box">
+                <h3>Example</h3>
+                <pre>{{ data["example"] }}</pre>
+            </div>
 
+            <a href="/" class="back-btn">← Back to Home</a>
+        </div>
+    </div>
 </body>
 </html>
