@@ -3,52 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error Explainer</title>
-    <link rel="stylesheet" href="{{ url\_for('static', filename='style.css') }}">
+    <title>Python Error Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="background-glow glow-1"></div>
-    <div class="background-glow glow-2"></div>
+    <nav class="navbar">
+        <a href="/">Home</a>
+        <a href="/error-search">Error Search</a>
+        <a href="/code-analyzer">Code Analyzer</a>
+        <a href="/about">About</a>
+    </nav>
 
     <div class="page-wrapper">
         <div class="hero-card fade-in">
-            <h1>Error Explainer</h1>
+            <h1>Python Error Analyzer</h1>
             <p class="subtitle">
-                Understand Python errors in a simple and visual way
+                Analyse Python code, discover common errors, and get suggested fixes in a simple way.
             </p>
 
-            <form action="/result" method="post" class="search-form">
-                <input type="text" name="error" placeholder="Enter error name like IndexError" required>
-                <button type="submit">Explain Now</button>
-            </form>
-        </div>
-
-        <div class="examples-card fade-in delay-1">
-            <h2>Popular Errors</h2>
-            <div class="chips">
-                <span>IndexError</span>
-                <span>TypeError</span>
-                <span>NameError</span>
-                <span>ZeroDivisionError</span>
-                <span>KeyError</span>
-                <span>SyntaxError</span>
-            </div>
-        </div>
-
-        <div class="features-grid fade-in delay-2">
-            <div class="feature-box">
-                <h3>Clear Description</h3>
-                <p>Know what the error means in simple words.</p>
-            </div>
-
-            <div class="feature-box">
-                <h3>Fast Solution</h3>
-                <p>Get a direct idea of how to fix it.</p>
-            </div>
-
-            <div class="feature-box">
-                <h3>Code Example</h3>
-                <p>See a sample that causes the error.</p>
+            <div class="button-group">
+                <a class="main-btn" href="/code-analyzer">Start Code Analysis</a>
+                <a class="main-btn secondary-btn" href="/error-search">Search Error Types</a>
             </div>
         </div>
     </div>

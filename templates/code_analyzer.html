@@ -1,1 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/">Home</a>
+        <a href="/error-search">Error Search</a>
+        <a href="/code-analyzer">Code Analyzer</a>
+        <a href="/about">About</a>
+    </nav>
 
+    <div class="page-wrapper">
+        <div class="hero-card fade-in">
+            <h1>Code Analyzer</h1>
+            <p class="subtitle">Paste your Python code below and analyse it.</p>
+
+            <form action="/analyze" method="post" class="search-form-column">
+                <textarea name="code" rows="14" placeholder="Write or paste Python code here..." required></textarea>
+                <button type="submit">Analyze Code</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

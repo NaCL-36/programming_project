@@ -1,1 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/">Home</a>
+        <a href="/error-search">Error Search</a>
+        <a href="/code-analyzer">Code Analyzer</a>
+        <a href="/about">About</a>
+    </nav>
 
+    <div class="page-wrapper">
+        <div class="hero-card fade-in">
+            <h1>About This Project</h1>
+            <p class="subtitle">
+                Python Error Analyzer is a simple Flask-based web application that helps beginners
+                understand Python errors and learn how to fix them.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

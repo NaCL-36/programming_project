@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/">Home</a>
+        <a href="/error-search">Error Search</a>
+        <a href="/code-analyzer">Code Analyzer</a>
+        <a href="/about">About</a>
+    </nav>
 
+    <div class="page-wrapper">
+        <div class="hero-card fade-in">
+            <h1>Error Search</h1>
+            <p class="subtitle">Type an error name or choose one from the list.</p>
+
+            <form action="/result" method="post" class="search-form-column">
+                <input type="text" name="error" placeholder="Enter error name like IndexError" required>
+                <button type="submit">Search Error</button>
+            </form>
+        </div>
+
+        <div class="hero-card fade-in">
+            <h2>Common Errors</h2>
+            <div class="error-grid">
+                {% for err in errors_list %}
+                    <a class="error-link" href="/quick-error/{{ err }}">{{ err }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
