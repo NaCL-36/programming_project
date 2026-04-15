@@ -7,54 +7,111 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/error-search">Error Search</a>
-        <a href="/code-analyzer">Code Analyzer</a>
-        <a href="/about">About</a>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="logo-icon">🐍</div>
+                <div class="logo-text">
+                    <h1>PyAnalyzer</h1>
+                    <span>Error Analyzer</span>
+                </div>
+            </div>
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        
+        <div class="sidebar-nav">
+            <div class="nav-section-title">Menu</div>
+            <a href="/" class="nav-link">
+                <div class="nav-icon">🏠</div>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="/code-analyzer" class="nav-link">
+                <div class="nav-icon">💻</div>
+                <span class="nav-text">Code Analyzer</span>
+            </a>
+            <a href="/error-search" class="nav-link">
+                <div class="nav-icon">🔎</div>
+                <span class="nav-text">Error Search</span>
+            </a>
+            
+            <div class="nav-section-title">Info</div>
+            <a href="/about" class="nav-link">
+                <div class="nav-icon">📋</div>
+                <span class="nav-text">About</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>Powered by AI</p>
+        </div>
     </nav>
 
-    <div class="page-wrapper">
-        <div class="result-card fade-in">
-            <h1>{{ error }}</h1>
-            <p class="subtitle">Analysis Result</p>
+    <main class="main-content">
+        <div class="page-wrapper">
+            <div class="result-card fade-in">
+                <h1>{{ error }}</h1>
+                <p class="subtitle">Analysis Result</p>
 
-            <div class="info-box">
-                <h3>Description</h3>
-                <p>{{ data["description"] }}</p>
-            </div>
+                <div class="info-box">
+                    <h3>Description</h3>
+                    <p>{{ data["description"] }}</p>
+                </div>
 
-            <div class="info-box">
-                <h3>Solution</h3>
-                <p>{{ data["solution"] }}</p>
-            </div>
+                <div class="info-box">
+                    <h3>Solution</h3>
+                    <p>{{ data["solution"] }}</p>
+                </div>
 
-            <div class="info-box">
-                <h3>Detected / Original Code</h3>
-                <pre>{{ data["example"] }}</pre>
-            </div>
+                <div class="info-box">
+                    <h3>Detected / Original Code</h3>
+                    <pre>{{ data["example"] }}</pre>
+                </div>
 
-            <div class="info-box">
-                <h3>Suggested Fixed Code</h3>
-                {% if data["fixed_code"] == "No fix needed. Your code is already correct." %}
-                    <p class="success-text">✅ No fix needed. Your code is already correct.</p>
-                {% else %}
-                    <pre>{{ data["fixed_code"] }}</pre>
+                <div class="info-box">
+                    <h3>Suggested Fixed Code</h3>
+                    {% if data["fixed_code"] == "No fix needed. Your code is already correct." %}
+                        <p class="success-text">No fix needed. Your code is already correct.</p>
+                    {% else %}
+                        <pre>{{ data["fixed_code"] }}</pre>
+                    {% endif %}
+                </div>
+
+                <div class="info-box">
+                    <h3>Notes</h3>
+                    <p>{{ data["notes"] }}</p>
+                </div>
+
+                {% if user_code %}
+                <div class="info-box">
+                    <h3>Your Input Code</h3>
+                    <pre>{{ user_code }}</pre>
+                </div>
                 {% endif %}
+                
+                <div style="margin-top: 25px;">
+                    <a href="/code-analyzer" class="main-btn">Analyze More Code</a>
+                    <a href="/error-search" class="main-btn secondary-btn" style="margin-left: 10px;">Search More Errors</a>
+                </div>
             </div>
-
-            <div class="info-box">
-                <h3>Notes</h3>
-                <p>{{ data["notes"] }}</p>
-            </div>
-
-            {% if user_code %}
-            <div class="info-box">
-                <h3>Your Input Code</h3>
-                <pre>{{ user_code }}</pre>
-            </div>
-            {% endif %}
         </div>
-    </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '80px';
+                toggleBtn.textContent = '☰';
+            } else {
+                mainContent.style.marginLeft = '280px';
+                toggleBtn.textContent = '✕';
+[4/15/2026 10:49 AM] Eng/سالييييم: }
+        }
+    </script>
 </body>
 </html>

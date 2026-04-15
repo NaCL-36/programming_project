@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request
+[4/15/2026 10:22 AM] Eng/سالييييم: from flask import Flask, render_template, request
 import traceback
 
-app = Flask(__name__)
+app = Flask(name)
 
 
 # Dictionary of common Python errors
@@ -77,9 +77,7 @@ errors = {
         "notes": "Make sure the spelling is correct and the package is installed."
     }
 }
-
-
-def default_result(error_name="No Error", description="No issue found.", solution="Your code looks fine.",
+[4/15/2026 10:22 AM] Eng/سالييييم: def default_result(error_name="No Error", description="No issue found.", solution="Your code looks fine.",
                    example="", fixed_code="No fix needed. Your code is already correct.",
                    notes="No additional notes."):
     return {
@@ -147,7 +145,7 @@ def analyse_code(code):
         return "No Error", default_result()
 
     except Exception as e:
-        error_type = type(e).__name__
+        error_type = type(e).name
         tb = traceback.format_exc()
 
         if error_type in errors:
@@ -202,8 +200,7 @@ def analyze():
 @app.route("/result", methods=["POST"])
 def result():
     user_error = request.form.get("error", "").strip()
-
-    if user_error in errors:
+[4/15/2026 10:22 AM] Eng/سالييييم: if user_error in errors:
         data = errors[user_error]
     else:
         data = {
@@ -233,5 +230,5 @@ def quick_error(error_name):
     return render_template("result.html", error=error_name, data=data, user_code="")
 
 
-if __name__ == "__main__":
+if name == "main":
     app.run(debug=True)

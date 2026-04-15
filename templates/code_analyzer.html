@@ -1,29 +1,196 @@
-<!DOCTYPE html>
+[4/15/2026 10:52 AM] Eng/سالييييم: <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Analyzer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .code-editor-wrapper {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+            margin-bottom: 20px;
+        }
+        
+        .code-editor-header {
+            background: #1e293b;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .code-dot.red { background: #ef4444; }
+        .code-dot.yellow { background: #f59e0b; }
+        .code-dot.green { background: #10b981; }
+        
+        .code-editor-header span {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-left: auto;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .code-textarea {
+            width: 100%;
+            padding: 20px;
+            border-radius: 0;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 300px;
+            resize: vertical;
+            line-height: 1.7;
+        }
+        
+        .code-textarea::placeholder {
+            color: #64748b;
+        }
+        
+        .code-textarea:focus {
+            background: #0f172a;
+            box-shadow: none;
+        }
+        
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+            border-color: #6366f1;
+        }
+        
+        .feature-card h3 {
+            color: #6366f1;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/error-search">Error Search</a>
-        <a href="/code-analyzer">Code Analyzer</a>
-        <a href="/about">About</a>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="logo-icon">🐍</div>
+                <div class="logo-text">
+                    <h1>PyAnalyzer</h1>
+                    <span>Error Analyzer</span>
+                </div>
+            </div>
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        
+        <div class="sidebar-nav">
+            <div class="nav-section-title">Menu</div>
+            <a href="/" class="nav-link">
+                <div class="nav-icon">🏠</div>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="/code-analyzer" class="nav-link active">
+                <div class="nav-icon">💻</div>
+                <span class="nav-text">Code Analyzer</span>
+            </a>
+            <a href="/error-search" class="nav-link">
+                <div class="nav-icon">🔎</div>
+                <span class="nav-text">Error Search</span>
+            </a>
+            
+            <div class="nav-section-title">Info</div>
+            <a href="/about" class="nav-link">
+                <div class="nav-icon">📋</div>
+                <span class="nav-text">About</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>Powered by AI</p>
+[4/15/2026 10:52 AM] Eng/سالييييم: </div>
     </nav>
 
-    <div class="page-wrapper">
-        <div class="hero-card fade-in">
-            <h1>Code Analyzer</h1>
-            <p class="subtitle">Paste your Python code below and analyse it.</p>
+    <main class="main-content">
+        <div class="page-wrapper">
+            <div class="hero-card fade-in">
+                <h1>Code Analyzer</h1>
+                <p class="subtitle">Paste your Python code below and get AI-powered analysis with error detection, explanations, and suggested fixes.</p>
 
-            <form action="/analyze" method="post" class="search-form-column">
-                <textarea name="code" rows="14" placeholder="Write or paste Python code here..." required></textarea>
-                <button type="submit">Analyze Code</button>
-            </form>
+                <div class="code-editor-wrapper">
+                    <div class="code-editor-header">
+                        <div class="code-dot red"></div>
+                        <div class="code-dot yellow"></div>
+                        <div class="code-dot green"></div>
+                        <span>main.py</span>
+                    </div>
+                    <form action="/analyze" method="post">
+                        <textarea class="code-textarea" name="code" placeholder="# Paste your Python code here..." required></textarea>
+                </div>
+                
+                <button type="submit" class="main-btn" style="width: 100%;">Analyze Code</button>
+                </form>
+            </div>
+
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h3>Error Detection</h3>
+                    <p>Automatically identifies syntax and runtime errors in your code</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Smart Fixes</h3>
+                    <p>Get suggested corrections with explanations</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Learning</h3>
+                    <p>Understand why errors occur and how to prevent them</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '80px';
+                toggleBtn.textContent = '☰';
+            } else {
+                mainContent.style.marginLeft = '280px';
+                toggleBtn.textContent = '✕';
+            }
+        }
+    </script>
 </body>
 </html>

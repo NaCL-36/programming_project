@@ -1,27 +1,133 @@
-<!DOCTYPE html>
+[4/15/2026 10:53 AM] Eng/سالييييم: <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .about-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .about-item {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .about-item h3 {
+            color: #6366f1;
+            margin-bottom: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .about-item p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+        
+        @media (max-width: 768px) {
+            .about-card {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/error-search">Error Search</a>
-        <a href="/code-analyzer">Code Analyzer</a>
-        <a href="/about">About</a>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="logo-icon">🐍</div>
+                <div class="logo-text">
+                    <h1>PyAnalyzer</h1>
+                    <span>Error Analyzer</span>
+                </div>
+            </div>
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        
+        <div class="sidebar-nav">
+            <div class="nav-section-title">Menu</div>
+            <a href="/" class="nav-link">
+                <div class="nav-icon">🏠</div>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="/code-analyzer" class="nav-link">
+                <div class="nav-icon">💻</div>
+                <span class="nav-text">Code Analyzer</span>
+            </a>
+            <a href="/error-search" class="nav-link">
+                <div class="nav-icon">🔎</div>
+                <span class="nav-text">Error Search</span>
+            </a>
+            
+            <div class="nav-section-title">Info</div>
+            <a href="/about" class="nav-link active">
+                <div class="nav-icon">📋</div>
+                <span class="nav-text">About</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>Powered by AI</p>
+        </div>
     </nav>
 
-    <div class="page-wrapper">
-        <div class="hero-card fade-in">
-            <h1>About This Project</h1>
-            <p class="subtitle">
-                Python Error Analyzer is a simple Flask-based web application that helps beginners
-                understand Python errors and learn how to fix them.
-            </p>
+    <main class="main-content">
+        <div class="page-wrapper">
+            <div class="hero-card fade-in">
+                <h1>About This Project</h1>
+                <p class="subtitle">
+                    Python Error Analyzer is a Flask-based web application that helps beginners
+                    understand Python errors and learn how to fix them using AI-powered analysis.
+                </p>
+
+                <div class="about-card">
+                    <div class="about-item">
+                        <h3>💻 Code Analyzer</h3>
+                        <p>Paste your Python code and get instant analysis with error detection, explanations, and suggested fixes powered by AI.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>🔎 Error Search</h3>
+                        <p>Search through common Python errors to understand what they mean and how to resolve them.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>📚 Learning</h3>
+                        <p>Understand the root causes of errors and learn best practices to avoid them in the future.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>🤖 AI Powered</h3>
+                        <p>Uses advanced AI to analyze code and provide intelligent suggestions for fixes and improvements.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+[4/15/2026 10:53 AM] Eng/سالييييم: const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '80px';
+                toggleBtn.textContent = '☰';
+            } else {
+                mainContent.style.marginLeft = '280px';
+                toggleBtn.textContent = '✕';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -7,25 +7,92 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/error-search">Error Search</a>
-        <a href="/code-analyzer">Code Analyzer</a>
-        <a href="/about">About</a>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="logo-icon">🐍</div>
+                <div class="logo-text">
+                    <h1>PyAnalyzer</h1>
+                    <span>Error Analyzer</span>
+                </div>
+            </div>
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        
+        <div class="sidebar-nav">
+            <div class="nav-section-title">Menu</div>
+            <a href="/" class="nav-link active">
+                <div class="nav-icon">🏠</div>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="/code-analyzer" class="nav-link">
+                <div class="nav-icon">💻</div>
+                <span class="nav-text">Code Analyzer</span>
+            </a>
+            <a href="/error-search" class="nav-link">
+                <div class="nav-icon">🔎</div>
+                <span class="nav-text">Error Search</span>
+            </a>
+            
+            <div class="nav-section-title">Info</div>
+            <a href="/about" class="nav-link">
+                <div class="nav-icon">📋</div>
+                <span class="nav-text">About</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>Powered by AI</p>
+        </div>
     </nav>
 
-    <div class="page-wrapper">
-        <div class="hero-card fade-in">
-            <h1>Python Error Analyzer</h1>
-            <p class="subtitle">
-                Analyse Python code, discover common errors, and get suggested fixes in a simple way.
-            </p>
+    <main class="main-content">
+        <div class="page-wrapper">
+            <div class="hero-card fade-in">
+                <h1>Python Error Analyzer</h1>
+                <p class="subtitle">
+                    Analyze Python code, discover common errors, and get suggested fixes with powerful AI-powered insights.
+                </p>
 
-            <div class="button-group">
-                <a class="main-btn" href="/code-analyzer">Start Code Analysis</a>
-                <a class="main-btn secondary-btn" href="/error-search">Search Error Types</a>
+                <div class="button-group">
+                    <a class="main-btn" href="/code-analyzer">Start Code Analysis</a>
+                    <a class="main-btn secondary-btn" href="/error-search">Search Error Types</a>
+                </div>
+            </div>
+            
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <h3>20+</h3>
+                    <p>Common Errors</p>
+                </div>
+                <div class="stat-card">
+                    <h3>AI</h3>
+                    <p>Powered Analysis</p>
+                </div>
+                <div class="stat-card">
+                    <h3>100%</h3>
+                    <p>Free to Use</p>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '80px';
+                toggleBtn.textContent = '☰';
+            } else {
+                mainContent.style.marginLeft = '280px';
+                toggleBtn.textContent = '✕';
+            }
+        }
+    </script>
 </body>
 </html>

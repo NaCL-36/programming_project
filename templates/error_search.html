@@ -7,32 +7,85 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/error-search">Error Search</a>
-        <a href="/code-analyzer">Code Analyzer</a>
-        <a href="/about">About</a>
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="logo-icon">🐍</div>
+                <div class="logo-text">
+                    <h1>PyAnalyzer</h1>
+                    <span>Error Analyzer</span>
+                </div>
+            </div>
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        
+        <div class="sidebar-nav">
+            <div class="nav-section-title">Menu</div>
+            <a href="/" class="nav-link">
+                <div class="nav-icon">🏠</div>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="/code-analyzer" class="nav-link">
+                <div class="nav-icon">💻</div>
+                <span class="nav-text">Code Analyzer</span>
+            </a>
+            <a href="/error-search" class="nav-link active">
+                <div class="nav-icon">🔎</div>
+                <span class="nav-text">Error Search</span>
+            </a>
+            
+            <div class="nav-section-title">Info</div>
+            <a href="/about" class="nav-link">
+                <div class="nav-icon">📋</div>
+                <span class="nav-text">About</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>Powered by AI</p>
+        </div>
     </nav>
 
-    <div class="page-wrapper">
-        <div class="hero-card fade-in">
-            <h1>Error Search</h1>
-            <p class="subtitle">Type an error name or choose one from the list.</p>
+    <main class="main-content">
+        <div class="page-wrapper">
+            <div class="hero-card fade-in">
+                <h1>Error Search</h1>
+                <p class="subtitle">Type an error name to get detailed information about common Python errors and how to fix them.</p>
 
-            <form action="/result" method="post" class="search-form-column">
-                <input type="text" name="error" placeholder="Enter error name like IndexError" required>
-                <button type="submit">Search Error</button>
-            </form>
-        </div>
+                <form action="/result" method="post" class="search-form-column">
+                    <input type="text" name="error" placeholder="Enter error name like IndexError, TypeError..." required>
+                    <button type="submit" style="width: 100%;">Search Error</button>
+                </form>
+            </div>
 
-        <div class="hero-card fade-in">
-            <h2>Common Errors</h2>
-            <div class="error-grid">
-                {% for err in errors_list %}
-                    <a class="error-link" href="/quick-error/{{ err }}">{{ err }}</a>
-                {% endfor %}
+            <div class="hero-card fade-in">
+                <h1 style="font-size: 1.5rem;">Common Python Errors</h1>
+                <p class="subtitle" style="margin-bottom: 15px; font-size: 1rem;">Click on any error below to learn more about it.</p>
+                <div class="error-grid">
+                    {% for err in errors_list %}
+                        <a class="error-link" href="/quick-error/{{ err }}">{{ err }}</a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '80px';
+                toggleBtn.textContent = '☰';
+            } else {
+                mainContent.style.marginLeft = '280px';
+                toggleBtn.textContent = '✕';
+            }
+        }
+    </script>
 </body>
 </html>
