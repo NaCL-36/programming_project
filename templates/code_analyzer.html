@@ -1,3 +1,104 @@
+<<<<<<< HEAD
+{% extends "base.html" %}
+{% block title %}Code Analyzer - PyAnalyzer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero-card animate-fadeInUp">
+        <div style="text-align: center; padding: 30px 20px;">
+            <h1><span class="gradient-text">Code Analyzer</span></h1>
+            <p class="subtitle">Paste your Python code below and get instant AI-powered error detection with detailed explanations.</p>
+        </div>
+    </div>
+
+    <!-- Code Editor Section -->
+    <div class="card animate-fadeInUp delay-1">
+        <div class="code-block" style="margin: 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+            <div class="code-header">
+                <div class="code-dots">
+                    <span class="code-dot red"></span>
+                    <span class="code-dot yellow"></span>
+                    <span class="code-dot green"></span>
+                </div>
+                <span class="code-title">main.py - PyAnalyzer</span>
+            </div>
+            
+            <form action="/analyze" method="post">
+                <textarea 
+                    name="code" 
+                    class="form-input" 
+                    style="border: none; border-radius: 0; min-height: 320px; resize: vertical;"
+                    placeholder="# Paste your Python code here...
+
+# Example:
+x = 10
+print(x)"
+                    spellcheck="false"
+                ></textarea>
+                
+                <div style="padding: 20px; background: var(--bg-tertiary); display: flex; justify-content: center;">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-bolt"></i> Analyze Code
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Features Mini -->
+    <div class="grid grid-3" style="margin-top: 40px;">
+        <div class="card animate-fadeInUp delay-2">
+            <div class="feature-icon" style="width: 48px; height: 48px; font-size: 1.2rem; margin-bottom: 15px;">
+                <i class="fas fa-bug"></i>
+            </div>
+            <h3>Precise Detection</h3>
+            <p style="font-size: 0.9rem;">Identifies syntax and runtime errors with line numbers.</p>
+        </div>
+        
+        <div class="card animate-fadeInUp delay-3">
+            <div class="feature-icon" style="width: 48px; height: 48px; font-size: 1.2rem; margin-bottom: 15px;">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3>Learn & Grow</h3>
+            <p style="font-size: 0.9rem;">Understand why errors happen with clear explanations.</p>
+        </div>
+        
+        <div class="card animate-fadeInUp delay-4">
+            <div class="feature-icon" style="width: 48px; height: 48px; font-size: 1.2rem; margin-bottom: 15px;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Solution Ready</h3>
+            <p style="font-size: 0.9rem;">Get corrected code with best practices.</p>
+        </div>
+    </div>
+
+    <!-- Sample Code -->
+    <div class="card animate-fadeInUp" style="margin-top: 40px;">
+        <h3><i class="fas fa-flask" style="color: var(--primary);"></i> Try a Sample Error</h3>
+        <p style="color: var(--text-secondary); margin: 10px 0 20px;">Click to load sample code that demonstrates a common error:</p>
+        
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-title">sample.py</span>
+            </div>
+            <div class="code-content">
+x = 10
+x.append(5)  # TypeError - integers don't have append()
+print(x)</div>
+        </div>
+        
+        <form action="/analyze" method="post" style="display: inline;">
+            <input type="hidden" name="code" value="x = 10
+x.append(5)
+print(x)">
+            <button type="submit" class="btn btn-sm mt-md">
+                <i class="fas fa-play"></i> Analyze This Code
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,3 +295,4 @@
     </script>
 </body>
 </html>
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d

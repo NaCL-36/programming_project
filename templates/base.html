@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PyAnalyzer - AI-Powered Python Error Analyzer">
+    <meta name="theme-color" content="#6366f1">
+    <title>{% block title %}PyAnalyzer - AI Python Error Analyzer{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <div class="nav-brand-icon">
+                    <i class="fab fa-python"></i>
+                </div>
+                <span class="gradient-text">PyAnalyzer</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/code-analyzer" class="nav-link {% if request.path == '/code-analyzer' %}active{% endif %}">
+                    <i class="fas fa-code"></i>
+                    <span>Analyzer</span>
+                </a>
+                <a href="/error-search" class="nav-link {% if request.path == '/error-search' %}active{% endif %}">
+                    <i class="fas fa-bug"></i>
+                    <span>Errors</span>
+                </a>
+                <a href="/about" class="nav-link {% if request.path == '/about' %}active{% endif %}">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- AI Assistant Widget -->
+    <div class="ai-widget">
+        <button class="ai-toggle" id="aiToggle" aria-label="Open AI Assistant">
+            <i class="fas fa-robot"></i>
+        </button>
+        
+        <div class="ai-panel" id="aiPanel">
+            <div class="ai-header">
+                <div class="ai-header-content">
+                    <div class="ai-avatar-lg">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: white; margin: 0;">PyAI Assistant</h4>
+                        <span class="ai-status">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                </div>
+                <button class="ai-close" id="aiClose">✕</button>
+            </div>
+            
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message ai-message-bot">
+                    <div class="ai-avatar-sm"><i class="fas fa-robot"></i></div>
+                    <div class="ai-message-content">
+                        <p>👋 Hello! I'm PyAI, your Python coding assistant.</p>
+                        <p>I can help you with:</p>
+                        <ul style="margin: 8px 0; padding-left: 20px;">
+                            <li>Understanding Python errors</li>
+                            <li>Debugging your code</li>
+                            <li>Explaining programming concepts</li>
+                            <li>Suggesting code improvements</li>
+                        </ul>
+                        <p>How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ai-input-area">
+                <input type="text" id="aiInput" placeholder="Ask about Python errors..." autocomplete="off">
+                <button id="aiSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    
+    themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        themeIcon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+    // AI Widget
+    const aiToggle = document.getElementById('aiToggle');
+    const aiClose = document.getElementById('aiClose');
+    const aiPanel = document.getElementById('aiPanel');
+    const aiInput = document.getElementById('aiInput');
+    const aiSend = document.getElementById('aiSend');
+    const aiMessages = document.getElementById('aiMessages');
+
+    aiToggle.addEventListener('click', () => aiPanel.classList.toggle('active'));
+    aiClose.addEventListener('click', () => aiPanel.classList.remove('active'));
+
+    function addMessage(content, isUser) {
+        const div = document.createElement('div');
+        div.className = `ai-message ${isUser ? 'ai-message-user' : 'ai-message-bot'}`;
+        div.innerHTML = `
+            <div class="ai-avatar-sm"><i class="fas ${isUser ? 'fa-user' : 'fa-robot'}"></i></div>
+            <div class="ai-message-content">${content}</div>
+        `;
+        aiMessages.appendChild(div);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+
+    function showTyping() {
+        const div = document.createElement('div');
+        div.className = 'ai-message ai-message-bot';
+        div.id = 'typing';
+        div.innerHTML = `
+            <div class="ai-avatar-sm"><i class="fas fa-robot"></i></div>
+            <div class="ai-typing"><span></span><span></span><span></span></div>
+        `;
+        aiMessages.appendChild(div);
+    }
+
+    function hideTyping() {
+        document.getElementById('typing')?.remove();
+    }
+
+    function sendMessage() {
+        const msg = aiInput.value.trim();
+        if (!msg) return;
+        
+        addMessage(msg, true);
+        aiInput.value = '';
+        showTyping();
+        
+        fetch('/api/ai-chat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({message: msg})
+        })
+        .then(r => r.json())
+        .then(data => {
+            hideTyping();
+            addMessage(data.response, false);
+        })
+        .catch(() => {
+            hideTyping();
+            addMessage("I'm here to help! Ask me about Python errors.", false);
+        });
+    }
+
+    aiSend.addEventListener('click', sendMessage);
+    aiInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
+    </script>
+    
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

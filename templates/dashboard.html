@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - PyAnalyzer{% endblock %}
+
+{% block extra_head %}
+<style>
+    .dashboard-page {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-2xl);
+        flex-wrap: wrap;
+        gap: var(--space-md);
+    }
+    
+    .refresh-btn {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+    }
+    
+    .stats-overview {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--space-lg);
+        margin-bottom: var(--space-2xl);
+    }
+    
+    .overview-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-xl);
+        padding: var(--space-xl);
+        text-align: center;
+        transition: all var(--transition-normal);
+    }
+    
+    .overview-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .overview-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin: 0 auto var(--space-md);
+    }
+    
+    .overview-icon.primary { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+    .overview-icon.success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+    .overview-icon.warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+    .overview-icon.error { background: rgba(239, 68, 68, 0.1); color: var(--error); }
+    
+    .overview-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+    
+    .overview-label {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+    }
+    
+    .chart-section {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-xl);
+        padding: var(--space-xl);
+        margin-bottom: var(--space-xl);
+    }
+    
+    .chart-title {
+        font-size: 1.25rem;
+        margin-bottom: var(--space-lg);
+    }
+    
+    .bar-chart {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .bar-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+    }
+    
+    .bar-label {
+        min-width: 140px;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    
+    .bar-track {
+        flex: 1;
+        height: 32px;
+        background: var(--bg-tertiary);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
+    
+    .bar-fill {
+        height: 100%;
+        background: var(--primary-gradient);
+        border-radius: var(--radius-md);
+        transition: width 1s ease-out;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: var(--space-sm);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: var(--space-3xl);
+        color: var(--text-secondary);
+    }
+    
+    .empty-state-icon {
+        font-size: 4rem;
+        margin-bottom: var(--space-lg);
+        opacity: 0.5;
+    }
+    
+    .tip-card {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: var(--radius-xl);
+        padding: var(--space-xl);
+    }
+    
+    .tip-card h3 {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        margin-bottom: var(--space-md);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header animate-fadeInUp">
+        <div>
+            <h1>📊 Dashboard</h1>
+            <p class="subtitle">Track your Python error analysis activity</p>
+        </div>
+        <button class="btn btn-ghost" onclick="location.reload()">
+            <i class="fas fa-sync-alt"></i>
+            Refresh
+        </button>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-overview">
+        <div class="overview-card animate-fadeInUp delay-1">
+            <div class="overview-icon primary">
+                <i class="fas fa-code"></i>
+            </div>
+            <div class="overview-value">{{ stats.total_analyses if stats.total_analyses else 0 }}</div>
+            <div class="overview-label">Total Analyses</div>
+        </div>
+        
+        <div class="overview-card animate-fadeInUp delay-2">
+            <div class="overview-icon warning">
+                <i class="fas fa-bug"></i>
+            </div>
+            <div class="overview-value">{{ stats.errors_detected if stats.errors_detected else 0 }}</div>
+            <div class="overview-label">Errors Found</div>
+        </div>
+        
+        <div class="overview-card animate-fadeInUp delay-3">
+            <div class="overview-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="overview-value">{{ stats.successful_runs if stats.successful_runs else 0 }}</div>
+            <div class="overview-label">Successful Runs</div>
+        </div>
+        
+        <div class="overview-card animate-fadeInUp delay-4">
+            <div class="overview-icon error">
+                <i class="fas fa-percentage"></i>
+            </div>
+            <div class="overview-value">
+                {% if stats.total_analyses and stats.total_analyses > 0 %}
+                    {{ ((stats.errors_detected / stats.total_analyses) * 100)|round|int }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </div>
+            <div class="overview-label">Error Rate</div>
+        </div>
+    </div>
+
+    <!-- Error Distribution Chart -->
+    {% if stats.error_types and stats.error_types|length > 0 %}
+    <div class="chart-section animate-fadeInUp">
+        <h2 class="chart-title">📈 Error Distribution</h2>
+        <div class="bar-chart">
+            {% for error, count in stats.error_types.items() %}
+            <div class="bar-item">
+                <span class="bar-label">{{ error }}</span>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width: {{ (count / stats.errors_detected * 100)|round|int }}%;">
+                        {{ count }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="chart-section animate-fadeInUp">
+        <div class="empty-state">
+            <div class="empty-state-icon">📊</div>
+            <h3>No Data Yet</h3>
+            <p>Start analyzing your Python code to see statistics here!</p>
+            <a href="/code-analyzer" class="btn btn-primary mt-lg">
+                <i class="fas fa-bolt"></i>
+                Analyze Your First Code
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Quick Actions -->
+    <div class="grid grid-2 gap-lg">
+        <div class="tip-card animate-fadeInUp">
+            <h3>
+                <span style="color: var(--primary);">💡</span>
+                Quick Tip
+            </h3>
+            <p style="color: var(--text-secondary);">
+                Use the AI Assistant to ask questions about any Python error. 
+                Try asking "How to fix NameError?" or "What causes TypeError?"
+            </p>
+            <button class="btn btn-sm mt-md" onclick="document.getElementById('aiToggle').click()">
+                <i class="fas fa-robot"></i>
+                Open AI Assistant
+            </button>
+        </div>
+        
+        <div class="card animate-fadeInUp">
+            <h3>
+                <span style="color: var(--primary);">🎯</span>
+                Start Learning
+            </h3>
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                Explore common Python errors and learn how to fix them.
+            </p>
+            <a href="/error-search" class="btn btn-secondary btn-sm">
+                <i class="fas fa-search"></i>
+                Browse All Errors
+            </a>
+        </div>
+    </div>
+
+    <!-- Last Activity -->
+    {% if stats.last_analysis %}
+    <div class="card animate-fadeInUp mt-xl">
+        <h3>🕐 Last Activity</h3>
+        <p style="color: var(--text-secondary);">
+            Last analysis performed: {{ stats.last_analysis }}
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate bars on load
+    setTimeout(() => {
+        document.querySelectorAll('.bar-fill').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 100);
+        });
+    }, 300);
+});
+</script>
+{% endblock %}

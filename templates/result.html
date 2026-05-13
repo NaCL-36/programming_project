@@ -1,3 +1,111 @@
+<<<<<<< HEAD
+{% extends "base.html" %}
+{% block title %}{{ error }} - PyAnalyzer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Result Header -->
+    <div class="card animate-fadeInUp" style="border-left: 4px solid var(--primary);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 10px;">
+            <h1 class="gradient-text">{{ error }}</h1>
+            <a href="/code-analyzer" class="btn btn-ghost btn-sm">← Back to Analyzer</a>
+        </div>
+        <span class="badge badge-warning">⚠️ Common Error</span>
+    </div>
+
+    <!-- Description -->
+    <div class="info-box animate-fadeInUp delay-1">
+        <h3><span style="color: var(--primary);">📖</span> What It Means</h3>
+        <p>{{ data.description }}</p>
+    </div>
+
+    <!-- Solution -->
+    <div class="info-box animate-fadeInUp delay-2">
+        <h3><span style="color: var(--success);">🛠️</span> How to Fix It</h3>
+        <p>{{ data.solution }}</p>
+    </div>
+
+    <!-- Code Examples -->
+    {% if data.example or (data.fixed_code and data.fixed_code != 'Great job!') %}
+    <div class="animate-fadeInUp delay-3">
+        <h3 class="mb-lg">💻 Code Examples</h3>
+        
+        <div class="grid grid-2">
+            {% if data.example %}
+            <div>
+                <h4 style="color: var(--error); margin-bottom: 10px;">❌ Wrong Code</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">wrong.py</span>
+                        <button class="code-copy" onclick="navigator.clipboard.writeText(`{{ data.example }}`)"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <div class="code-content">{{ data.example }}</div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if data.fixed_code and data.fixed_code != 'Great job!' %}
+            <div>
+                <h4 style="color: var(--success); margin-bottom: 10px;">✅ Correct Code</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">correct.py</span>
+                        <button class="code-copy" onclick="navigator.clipboard.writeText(`{{ data.fixed_code }}`)"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <div class="code-content">{{ data.fixed_code }}</div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Notes -->
+    {% if data.notes %}
+    <div class="info-box animate-fadeInUp delay-4">
+        <h3><span style="color: var(--info);">📝</span> Additional Notes</h3>
+        <p>{{ data.notes }}</p>
+    </div>
+    {% endif %}
+
+    <!-- User Code -->
+    {% if user_code %}
+    <div class="card animate-fadeInUp delay-5" style="margin-top: 20px;">
+        <h3><span style="color: var(--primary);">📄</span> Your Analyzed Code</h3>
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-title">your_code.py</span>
+            </div>
+            <div class="code-content">{{ user_code }}</div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Related Errors -->
+    <div class="animate-fadeInUp" style="margin-top: 40px;">
+        <h3 class="mb-md">📚 Learn Similar Errors</h3>
+        <div class="error-grid">
+            <a href="/quick-error/SyntaxError" class="error-card">SyntaxError</a>
+            <a href="/quick-error/NameError" class="error-card">NameError</a>
+            <a href="/quick-error/TypeError" class="error-card">TypeError</a>
+            <a href="/quick-error/ValueError" class="error-card">ValueError</a>
+            <a href="/quick-error/IndexError" class="error-card">IndexError</a>
+            <a href="/quick-error/KeyError" class="error-card">KeyError</a>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-md justify-center mt-2xl animate-fadeInUp">
+        <a href="/code-analyzer" class="btn btn-primary">
+            <i class="fas fa-bolt"></i> Analyze More Code
+        </a>
+        <a href="/error-search" class="btn btn-secondary">
+            <i class="fas fa-search"></i> Browse Errors
+        </a>
+    </div>
+</div>
+{% endblock %}
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,3 +223,4 @@
     </script>
 </body>
 </html>
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d

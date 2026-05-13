@@ -1,3 +1,72 @@
+<<<<<<< HEAD
+{% extends "base.html" %}
+{% block title %}Error Search - PyAnalyzer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero-card animate-fadeInUp">
+        <div style="text-align: center; padding: 30px 20px;">
+            <h1><span class="gradient-text">Find Python Errors</span></h1>
+            <p class="subtitle">Search for specific Python errors to learn what they mean, why they happen, and how to fix them.</p>
+        </div>
+    </div>
+
+    <!-- Browse All Errors -->
+    <div class="card animate-fadeInUp delay-1">
+        <h2 class="mb-lg">📚 Browse All Errors</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 25px;">Click on any error to see detailed explanation and fix examples.</p>
+        
+        <div class="error-grid">
+            {% for err in errors_list %}
+            <a href="/quick-error/{{ err }}" class="error-card">
+                <span class="icon">⚠️</span>
+                {{ err }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Category Section -->
+    <div style="margin-top: 50px;">
+        <h2 class="text-center mb-xl">📁 Error Categories</h2>
+        
+        <div class="grid grid-2">
+            <div class="card animate-fadeInUp delay-2">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; margin-bottom: 15px;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>🔴 Syntax Errors</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Errors in code structure, like missing colons or incorrect indentation. These prevent your code from running.</p>
+            </div>
+            
+            <div class="card animate-fadeInUp delay-3">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; margin-bottom: 15px;">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3>🟡 Name Errors</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Using undefined variables or function names. This happens when you reference something that hasn't been created yet.</p>
+            </div>
+            
+            <div class="card animate-fadeInUp delay-4">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; margin-bottom: 15px;">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>🔵 Type Errors</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Using operations on incompatible data types. For example, trying to add a string to a number.</p>
+            </div>
+            
+            <div class="card animate-fadeInUp delay-5">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; margin-bottom: 15px;">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <h3>🟣 Other Errors</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Index, Key, Attribute, and Module errors. Each has specific causes and solutions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,3 +158,4 @@
     </script>
 </body>
 </html>
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d

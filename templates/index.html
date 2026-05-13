@@ -1,3 +1,127 @@
+<<<<<<< HEAD
+{% extends "base.html" %}
+{% block title %}PyAnalyzer - AI-Powered Python Error Learning{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero-card animate-fadeInUp">
+        <div style="text-align: center; padding: 40px 20px;">
+            <span class="badge badge-primary" style="margin-bottom: 20px; font-size: 0.9rem;">
+                <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite;"></span>
+                AI-Powered Error Analysis
+            </span>
+            
+            <h1 style="font-size: 3rem; margin-bottom: 15px;">
+                Master <span class="gradient-text">Python Errors</span><br>
+                With AI Assistance
+            </h1>
+            
+            <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 30px; line-height: 1.7;">
+                Analyze your Python code, discover common errors, and get detailed AI-powered explanations with suggested fixes to improve your coding skills.
+            </p>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="/code-analyzer" class="btn btn-primary btn-lg">
+                    <i class="fas fa-bolt"></i> Start Analysis
+                </a>
+                <a href="/error-search" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-search"></i> Browse Errors
+                </a>
+            </div>
+            
+            <div style="margin-top: 25px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <span class="badge" style="background: var(--bg-tertiary); cursor: pointer;" onclick="document.getElementById('aiToggle').click(); document.getElementById('aiInput').value='Explain SyntaxError'; document.getElementById('aiSend').click();">
+                    SyntaxError
+                </span>
+                <span class="badge" style="background: var(--bg-tertiary); cursor: pointer;" onclick="document.getElementById('aiToggle').click(); document.getElementById('aiInput').value='Explain NameError'; document.getElementById('aiSend').click();">
+                    NameError
+                </span>
+                <span class="badge" style="background: var(--bg-tertiary); cursor: pointer;" onclick="document.getElementById('aiToggle').click(); document.getElementById('aiInput').value='Explain TypeError'; document.getElementById('aiSend').click();">
+                    TypeError
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="grid grid-3" style="margin: 40px 0;">
+        <div class="stat-card animate-fadeInUp delay-1">
+            <div style="font-size: 2rem; margin-bottom: 10px;">🐛</div>
+            <div class="stat-value">10</div>
+            <div class="stat-label">Common Errors</div>
+            <div class="stat-sublabel">Fully Documented</div>
+        </div>
+        
+        <div class="stat-card animate-fadeInUp delay-2">
+            <div style="font-size: 2rem; margin-bottom: 10px;">💎</div>
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Free Forever</div>
+            <div class="stat-sublabel">No Signup Required</div>
+        </div>
+        
+        <div class="stat-card animate-fadeInUp delay-3">
+            <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
+            <div class="stat-value">Instant</div>
+            <div class="stat-label">Real-time Analysis</div>
+            <div class="stat-sublabel">Powered by AI</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section style="margin: 60px 0;">
+        <h2 class="text-center mb-xl">🎯 Powerful Features</h2>
+        
+        <div class="grid grid-auto">
+            <div class="feature-card glass-card animate-fadeInUp delay-1">
+                <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                <h3>AI Error Detection</h3>
+                <p>Automatically identifies syntax errors, runtime errors, and common mistakes in your Python code.</p>
+            </div>
+            
+            <div class="feature-card glass-card animate-fadeInUp delay-2">
+                <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+                <h3>Smart Explanations</h3>
+                <p>Get detailed explanations of why errors occur in simple, learner-friendly language.</p>
+            </div>
+            
+            <div class="feature-card glass-card animate-fadeInUp delay-3">
+                <div class="feature-icon"><i class="fas fa-code"></i></div>
+                <h3>Fixed Code Examples</h3>
+                <p>See correct solutions with side-by-side comparisons and best practices.</p>
+            </div>
+            
+            <div class="feature-card glass-card animate-fadeInUp delay-4">
+                <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                <h3>AI Chat Assistant</h3>
+                <p>Chat with our AI to get instant help with Python errors and coding concepts.</p>
+            </div>
+            
+            <div class="feature-card glass-card animate-fadeInUp delay-5">
+                <div class="feature-icon"><i class="fas fa-moon"></i></div>
+                <h3>Dark Mode</h3>
+                <p>Easy on the eyes with automatic dark/light mode based on your system preferences.</p>
+            </div>
+            
+            <div class="feature-card glass-card animate-fadeInUp delay-5">
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Fully Responsive</h3>
+                <p>Access PyAnalyzer on any device - desktop, tablet, or mobile.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="card" style="background: var(--primary-gradient); color: white; text-align: center; padding: 50px; margin-top: 40px;">
+        <h2 style="color: white; font-size: 2rem; margin-bottom: 15px;">Ready to Improve Your Python Skills?</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 25px;">Start analyzing your code now and learn from real error examples.</p>
+        <a href="/code-analyzer" class="btn" style="background: white; color: var(--primary);">
+            <i class="fas fa-rocket"></i> Start Analyzing
+        </a>
+    </section>
+</div>
+{% endblock %}
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,3 +220,4 @@
     </script>
 </body>
 </html>
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d

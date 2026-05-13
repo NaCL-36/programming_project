@@ -1,3 +1,115 @@
+<<<<<<< HEAD
+{% extends "base.html" %}
+{% block title %}About - PyAnalyzer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero-card animate-fadeInUp">
+        <div style="text-align: center; padding: 30px 20px;">
+            <h1>About <span class="gradient-text">PyAnalyzer</span></h1>
+            <p class="subtitle">Learn Python errors with instant AI-powered analysis, detailed explanations, and smart suggestions.</p>
+        </div>
+    </div>
+
+    <!-- What is PyAnalyzer -->
+    <div class="card animate-fadeInUp delay-1">
+        <h2>What Is PyAnalyzer?</h2>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 15px;">
+            PyAnalyzer is an intelligent Python error learning platform designed to help beginners and intermediate programmers understand common errors. Whether you're stuck on a <strong style="color: var(--primary);">SyntaxError</strong>, confused by a <strong style="color: var(--primary);">NameError</strong>, or puzzled by a <strong style="color: var(--primary);">TypeError</strong>, PyAnalyzer breaks down the problem and shows you how to fix it.
+        </p>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 15px;">
+            Built with a focus on learning, PyAnalyzer provides not just the fixes, but the explanations behind them—helping you understand <em>why</em> errors occur and how to prevent them in the future.
+        </p>
+    </div>
+
+    <!-- Core Features -->
+    <h2 class="text-center mb-xl mt-2xl">⚡ Core Capabilities</h2>
+    <div class="grid grid-3">
+        <div class="feature-card glass-card animate-fadeInUp delay-1">
+            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Instant Error Detection</h3>
+            <p>Analyzes Python code and identifies syntax errors, runtime errors, and common mistakes with precision.</p>
+        </div>
+        
+        <div class="feature-card glass-card animate-fadeInUp delay-2">
+            <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+            <h3>Clear Explanations</h3>
+            <p>Get detailed, beginner-friendly explanations without overwhelming technical jargon.</p>
+        </div>
+        
+        <div class="feature-card glass-card animate-fadeInUp delay-3">
+            <div class="feature-icon"><i class="fas fa-code"></i></div>
+            <h3>Working Solutions</h3>
+            <p>See corrected code with explanations and best practices to follow.</p>
+        </div>
+        
+        <div class="feature-card glass-card animate-fadeInUp delay-4">
+            <div class="feature-icon"><i class="fas fa-gem"></i></div>
+            <h3>Fast & Free</h3>
+            <p>Get instant results with no sign-ups, no limits, and no cost.</p>
+        </div>
+        
+        <div class="feature-card glass-card animate-fadeInUp delay-5">
+            <div class="feature-icon"><i class="fas fa-book"></i></div>
+            <h3>Learn Mode</h3>
+            <p>Browse 10+ common Python errors to understand patterns and avoid them.</p>
+        </div>
+        
+        <div class="feature-card glass-card animate-fadeInUp delay-5">
+            <div class="feature-icon"><i class="fas fa-robot"></i></div>
+            <h3>AI Assistant</h3>
+            <p>Chat with AI to get instant help with any Python error or concept.</p>
+        </div>
+    </div>
+
+    <!-- Supported Errors -->
+    <div class="card animate-fadeInUp" style="margin-top: 50px;">
+        <h2>📚 Supported Error Types</h2>
+        <p style="color: var(--text-secondary); margin: 15px 0;">PyAnalyzer covers the most common Python errors:</p>
+        
+        <div class="error-grid">
+            {% for err in errors %}
+            <a href="/quick-error/{{ err }}" class="error-card">{{ err }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- How to Use -->
+    <div class="card animate-fadeInUp" style="margin-top: 30px;">
+        <h2>🚀 How to Get Started</h2>
+        
+        <div class="grid grid-3" style="margin-top: 20px;">
+            <div style="text-align: center; padding: 20px;">
+                <div style="width: 60px; height: 60px; background: var(--primary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 15px;">1</div>
+                <h3>📝 Write Code</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Enter or paste your Python code</p>
+            </div>
+            
+            <div style="text-align: center; padding: 20px;">
+                <div style="width: 60px; height: 60px; background: var(--primary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 15px;">2</div>
+                <h3>⚡ Get Analysis</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Instant error detection</p>
+            </div>
+            
+            <div style="text-align: center; padding: 20px;">
+                <div style="width: 60px; height: 60px; background: var(--primary-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 15px;">3</div>
+                <h3>🎓 Learn & Fix</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Understand and apply the fix</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="card" style="background: var(--primary-gradient); color: white; text-align: center; padding: 50px; margin-top: 40px;">
+        <h2 style="color: white;">Ready to Master Python?</h2>
+        <p style="color: rgba(255,255,255,0.9); margin: 15px 0 25px;">Stop guessing about Python errors. Get instant, clear explanations.</p>
+        <a href="/code-analyzer" class="btn" style="background: white; color: var(--primary);">
+            <i class="fas fa-rocket"></i> Try the Analyzer
+        </a>
+    </div>
+</div>
+{% endblock %}
+=======
 [4/15/2026 10:53 AM] Eng/سالييييم: <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,3 +243,4 @@
     </script>
 </body>
 </html>
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d
