@@ -1,3 +1,44 @@
+<<<<<<< HEAD
+from flask import Flask, render_template, request, jsonify, session
+import traceback
+
+app = Flask(__name__)
+app.secret_key = 'pyanalyzer-secret-key'
+
+ERRORS = {
+    "SyntaxError": {"description": "Invalid syntax in code.", "solution": "Check brackets, quotes, colons.", "example": 'print("Hello"', "fixed_code": 'print("Hello")', "notes": "Stops program before running."},
+    "NameError": {"description": "Using undefined variable.", "solution": "Define variable first.", "example": "print(x)", "fixed_code": "x = 10\nprint(x)", "notes": "Check spelling."},
+    "TypeError": {"description": "Wrong data type operation.", "solution": "Convert types properly.", "example": 'print("Age: " + 20)', "fixed_code": 'print("Age: " + str(20))', "notes": "Use str(), int(), float()."},
+    "ValueError": {"description": "Invalid value for function.", "solution": "Use valid value.", "example": 'int("abc")', "fixed_code": 'int("123")', "notes": "Type is correct but value is wrong."},
+    "IndexError": {"description": "List index out of range.", "solution": "Check index range.", "example": "my_list[5]", "fixed_code": "my_list[2]", "notes": "Python starts at 0."},
+    "KeyError": {"description": "Dictionary key not found.", "solution": "Use .get() method.", 'example': 'data["age"]', 'fixed_code': 'data.get("age")', "notes": "Use dict.get()."},
+    "ZeroDivisionError": {"description": "Dividing by zero.", "solution": "Check divisor.", "example": "10/0", "fixed_code": "divisor = 2\nprint(10/divisor)", "notes": "Undefined in math."},
+    "IndentationError": {"description": "Wrong indentation.", "solution": "Use proper indentation.", "example": 'if True:\nprint("Hi")', "fixed_code": 'if True:\n    print("Hi")', "Notes": "Python uses indentation."},
+    "AttributeError": {"description": "Object doesn't have method.", "solution": "Check object type.", "example": "x = 10\nx.append(5)", "fixed_code": "x = [10]\nx.append(5)", "notes": "append() is for lists."},
+    "ModuleNotFoundError": {"description": "Module not found.", "solution": "Check spelling and install.", "example": "import numppy", "fixed_code": "import numpy", "notes": "Check package name."}
+}
+
+def analyse_code(code):
+    code = code.strip()
+    if not code:
+        return "Empty", {"description": "No code entered.", "solution": "Paste code first.", "example": "", "fixed_code": "", "notes": ""}
+    
+    try:
+        compile(code, "<string>", "exec")
+    except SyntaxError as e:
+        return "SyntaxError", {"description": f"Syntax error on line {e.lineno}.", "solution": "Check brackets, quotes.", "example": str(e.text), "fixed_code": "Fix the syntax.", "notes": str(e.msg)}
+    
+    try:
+        exec(code, {})
+        return "No Error", {"description": "No issues found!", "solution": "Your code is correct.", "example": "", "fixed_code": "Great job!", "notes": ""}
+    except Exception as e:
+        err_type = type(e).__name__
+        if err_type in ERRORS:
+            data = ERRORS[err_type].copy()
+            data["example"] = code
+            return err_type, data
+        return err_type, {"description": f"Error: {err_type}", "solution": "Check your code.", "example": code, "fixed_code": "Fix the error.", "notes": str(e)}
+=======
 from flask import Flask, render_template, request
 import traceback
 
@@ -164,11 +205,21 @@ def analyse_code(code):
             notes=tb
         )
 
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+<<<<<<< HEAD
+@app.route("/about")
+def about():
+    return render_template("about.html", errors=ERRORS)
+
+@app.route("/error-search")
+def error_search():
+    return render_template("error_search.html", errors_list=list(ERRORS.keys()))
+=======
 
 @app.route("/about")
 def about():
@@ -179,16 +230,44 @@ def about():
 def error_search():
     return render_template("error_search.html", errors_list=list(errors.keys()))
 
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d
 
 @app.route("/code-analyzer")
 def code_analyzer():
     return render_template("code_analyzer.html")
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d
 @app.route("/analyze", methods=["POST"])
 def analyze():
     user_code = request.form.get("code", "")
     error_name, data = analyse_code(user_code)
+<<<<<<< HEAD
+    return render_template("result.html", error=error_name, data=data, user_code=user_code)
+
+@app.route("/quick-error/<error_name>")
+def quick_error(error_name):
+    data = ERRORS.get(error_name, {"description": "Error not found.", "solution": "", "example": "", "fixed_code": "", "notes": ""})
+    return render_template("result.html", error=error_name, data=data, user_code="")
+
+@app.route("/api/ai-chat", methods=["POST"])
+def ai_chat():
+    query = request.get_json().get('message', '').lower()
+    responses = {
+        "syntax": "SyntaxError: Code has invalid syntax. Check brackets, quotes, colons!",
+        "name": "NameError: You're using a variable that doesn't exist. Define it first!",
+        "type": "TypeError: Wrong data type. Use str(), int(), float() to convert!",
+        "index": "IndexError: List index out of range. Remember Python starts at 0!",
+        "key": "KeyError: Dictionary key doesn't exist. Use .get() method!",
+        "help": "I can help with: SyntaxError, NameError, TypeError, IndexError, KeyError, and more!"
+    }
+    for k, v in responses.items():
+        if k in query:
+            return jsonify({'response': v})
+    return jsonify({'response': f"I understand you're asking about '{query}'. Ask me about any Python error!"})
+=======
 
     return render_template(
         "result.html",
@@ -231,6 +310,7 @@ def quick_error(error_name):
 
     return render_template("result.html", error=error_name, data=data, user_code="")
 
+>>>>>>> 8dadf08b30f45ad41a965d583c7e561ea0dff85d
 
 if __name__ == "__main__":
     app.run(debug=True)
